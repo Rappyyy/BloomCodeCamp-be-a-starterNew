@@ -25,6 +25,7 @@ public class AssignmentController {
     public ResponseEntity<?> createAssignment(@RequestBody Assignment assignment, @AuthenticationPrincipal User user) {
 
         assignment.setUser(user);
+        assignment.setCodeReviewer(user);
         Assignment createdAssignment = assignmentService.save(assignment);
 
         return ResponseEntity.ok(createdAssignment);
@@ -56,7 +57,7 @@ public class AssignmentController {
         assignment.get().setBranch(updatedAssignment.getBranch());
         assignment.get().setReviewVideoUrl(updatedAssignment.getReviewVideoUrl());
         assignment.get().setGithubUrl(updatedAssignment.getGithubUrl());
-        assignment.get().setCodeReviewer(updatedAssignment.getCodeReviewer());
+        assignment.get().setCodeReviewer(user);
 
         Assignment createAssignment = assignmentService.save(assignment.get());
 
