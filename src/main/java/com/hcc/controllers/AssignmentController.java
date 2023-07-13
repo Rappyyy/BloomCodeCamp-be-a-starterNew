@@ -15,7 +15,6 @@ import java.util.Set;
 @RestController
 @RequestMapping("/api/assignments")
 public class AssignmentController {
-
     @Autowired
     private AssignmentService assignmentService;
     @Autowired
@@ -30,7 +29,6 @@ public class AssignmentController {
 
         return ResponseEntity.ok(createdAssignment);
     }
-
     @GetMapping
     public ResponseEntity<?> getAssignments(@AuthenticationPrincipal User user) {
         Set<Assignment> assignmentsByUser = assignmentService.findByUser(user);

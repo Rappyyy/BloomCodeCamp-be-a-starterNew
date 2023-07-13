@@ -1,6 +1,8 @@
 package com.hcc.controllers;
 
 import com.hcc.DTOs.AuthCredentialRequest;
+import com.hcc.DTOs.AuthenticationResponse;
+import com.hcc.entities.Authority;
 import com.hcc.entities.User;
 import com.hcc.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -24,19 +30,36 @@ public class AuthController {
 
     @PostMapping("/login")
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<String> login(@RequestBody AuthCredentialRequest request) {
+    public ResponseEntity<?> login(@RequestBody AuthCredentialRequest request) {
+        Authentication authentication = null;
+        String userType = "";
+        List<Authority> authorityList = null;
+        Long userId = 0L;
+
         try {
-            Authentication auth = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
-            );
+            // Perform authentication using the provided username and password
+            authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 
-            User user = (User) auth.getPrincipal();
-            String token = jwtUtil.generateToken(user);
+            if (authentication.isAuthenticated()) {
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                User user = (User) authentication.getPrincipal();
+                userId = user.getId();
 
-            return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, token).body(token);
-        } catch (BadCredentialsException ex) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+                userType = user.getAuthorities().stream().findFirst().get().getAuthority();
+
+
+            } else {
+                return ResponseEntity.status(401).body("Invalid username or password");
+            }
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(401).body("Invalid username or password");
         }
+
+        // Generate JWT token and return it along with user details
+        final String token = jwtUtil.generateToken((User) authentication.getPrincipal());
+
+        return ResponseEntity.ok(new AuthenticationResponse(token, userId, request.getUsername(), userType));
     }
 
     @PostMapping("/validate")
