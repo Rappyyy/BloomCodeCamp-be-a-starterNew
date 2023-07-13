@@ -102,9 +102,6 @@ public class AuthController {
         user.setPassword(customPasswordEncoder.getPasswordEncoder().encode(request.getPassword()));
 
         // Set the user's authorities based on the selected role
-        List<Authority> authorities = new ArrayList<>();
-        authorities.add(new Authority(request.getRole(), user));
-        user.setAuthorities(authorities);
 
         // Save the user in the database
         userService.save(user);
