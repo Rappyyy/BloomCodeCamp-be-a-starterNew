@@ -30,11 +30,22 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+
+
     public Optional<User> getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public User findUserByUsername(String username) {
+        Optional<User> optUser = userRepository.findByUsername(username);
+        return optUser.get();
     }
 }

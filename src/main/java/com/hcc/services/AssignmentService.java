@@ -15,6 +15,9 @@ public class AssignmentService {
     @Autowired
     AssignmentRepository assignmentRepository;
 
+    @Autowired
+    UserService userService;
+
 //    private final AssignmentRepository assignmentRepository;
 
 //    public AssignmentService(AssignmentRepository assignmentRepository) {
@@ -26,8 +29,11 @@ public class AssignmentService {
     }
 
     public Set<Assignment> findByUser(User user) {
-        return assignmentRepository.findByUser(user);
+        User userWithAuthorities = userService.findUserByUsername(user.getUsername());
+        return assignmentRepository.findByUser(userWithAuthorities);
     }
+
+
     public Optional<Assignment> findById(Long id) {
         return assignmentRepository.findById(id);
     }
