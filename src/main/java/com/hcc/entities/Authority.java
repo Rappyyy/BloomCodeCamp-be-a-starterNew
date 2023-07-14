@@ -18,8 +18,6 @@ public class Authority implements GrantedAuthority {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public static final String ROLE_REVIEWER = "ROLE_REVIEWER";
-
     public Authority() {
     }
 

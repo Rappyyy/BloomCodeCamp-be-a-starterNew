@@ -87,7 +87,31 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
+//    @PostMapping("/register")
+//    public ResponseEntity<?> registerUser(@RequestBody UserRegistrationRequest request) {
+//        // Check if the username already exists in the database
+//        if (userService.existsByUsername(request.getUsername())) {
+//            return ResponseEntity.badRequest().body("Username already exists");
+//        }
+//
+//        LocalDate currentDate = LocalDate.now();
+//        User user = new User();
+//        user.setCohortStartDate(currentDate);
+//        user.setUsername(request.getUsername());
+//        // Use the CustomPasswordEncoder to encode the password
+//        user.setPassword(customPasswordEncoder.getPasswordEncoder().encode(request.getPassword()));
+//
+//        // Set the user's authorities based on the selected role
+//
+//        // Save the user in the database
+//        userService.save(user);
+//        authorityRepository.save(new Authority(request.getRole(), user));
+//
+//        return ResponseEntity.ok("User registered successfully");
+//    }
+
     @PostMapping("/register")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> registerUser(@RequestBody UserRegistrationRequest request) {
         // Check if the username already exists in the database
         if (userService.existsByUsername(request.getUsername())) {
@@ -102,6 +126,9 @@ public class AuthController {
         user.setPassword(customPasswordEncoder.getPasswordEncoder().encode(request.getPassword()));
 
         // Set the user's authorities based on the selected role
+//        List<Authority> authorities = new ArrayList<>();
+//        authorities.add(new Authority(request.getRole(), user));
+//        user.setAuthorities(authorities);
 
         // Save the user in the database
         userService.save(user);
@@ -109,5 +136,6 @@ public class AuthController {
 
         return ResponseEntity.ok("User registered successfully");
     }
+
 
 }

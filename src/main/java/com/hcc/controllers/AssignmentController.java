@@ -60,7 +60,7 @@ public class AssignmentController {
 
 
 
-    @PutMapping("{assignmentId}")
+    @PutMapping("/{assignmentId}")
     public ResponseEntity<?> updateAssignment(
             @PathVariable Long assignmentId,
             @RequestBody Assignment updatedAssignment,
@@ -79,9 +79,8 @@ public class AssignmentController {
             existingAssignment.setCodeReviewer(user);
 
             Assignment updated = assignmentService.save(existingAssignment);
-            AssignmentResponseDto assignmentDto = mapToDto(updated);
 
-            return ResponseEntity.ok(assignmentDto);
+            return ResponseEntity.ok(mapToDto(updated));
         } else {
             return ResponseEntity.notFound().build();
         }
