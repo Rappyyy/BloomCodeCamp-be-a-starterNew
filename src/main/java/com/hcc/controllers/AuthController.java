@@ -47,7 +47,6 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody AuthCredentialRequest request) {
         Authentication authentication = null;
         String userType = "";
-        List<Authority> authorityList = null;
         Long userId = 0L;
 
         try {
@@ -61,19 +60,19 @@ public class AuthController {
                 userId = user.getId();
                 userType = user.getAuthorities().stream().findFirst().get().getAuthority();
 
+                // Create a response object with token, user ID, username, and userType
+                String token = jwtUtil.generateToken((User) authentication.getPrincipal());
+                AuthenticationResponse response = new AuthenticationResponse(token, userId, request.getUsername(), userType);
 
+                return ResponseEntity.ok(response);
             } else {
                 return ResponseEntity.status(401).body("Invalid username or password");
             }
         } catch (AuthenticationException e) {
             return ResponseEntity.status(401).body("Invalid username or password");
         }
-
-        // Generate JWT token and return it along with user details
-        final String token = jwtUtil.generateToken((User) authentication.getPrincipal());
-
-        return ResponseEntity.ok(new AuthenticationResponse(token, userId, request.getUsername(), userType));
     }
+
 
     @PostMapping("/validate")
     public ResponseEntity<?> validateToken(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
