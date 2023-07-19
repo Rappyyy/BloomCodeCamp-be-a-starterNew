@@ -10,16 +10,16 @@ Enter **The Bloom Coder Assignment App** a solution to all their needs, *or at l
 
 ### Learner User Stories
 #### Bob the learner
-Meet Bob he is an ex rigger from the north sea and he wanted to persue a career in software engineering, he has aspirations of becomming a full stack web developer and later entering the realms of backend development as he progresses in his career. He came to `Bloom Code Camp` to get a step up on the cometition. Bob has some requests of the team.
+Meet Bob he is an ex rigger from the north sea, and he wanted to pursue a career in software engineering, he has aspirations of becomming a full stack web developer and later entering the realms of backend development as he progresses in his career. He came to `Bloom Code Camp` to get a step up on the cometition. Bob has some requests of the team.
 
-- As a Learner i want to be able to log in to the app and be presented with a dashboard
+- As a Learner I want to be able to log in to the app and be presented with a dashboard
 - As a learner I want a dashboard that shows all of my currently working on, submitted, rejected, and completed assignments.
 
 #### Jen the learner
-Meet Jen she works 3 jobs to support her family and wants to gain a better work home life ballance, for her this means becoming a Data Engineer. For this she will need to learn backend development / Database Design and a some Data Science. She has enrolled at `Bloom Code Camp` with aspirations of becoming the best data engineer that she can be. Jen has some requests of the team.
+Meet Jen she works 3 jobs to support her family and wants to gain a better work home life balance, for her this means becoming a Data Engineer. For this she will need to learn backend development / Database Design and a some Data Science. She has enrolled at `Bloom Code Camp` with aspirations of becoming the best data engineer that she can be. Jen has some requests of the team.
 
 - As a Learner I want to be able to click on a `Create Assignment` button on my dashboard and be presented with a form to allow me to submit an assignment with room for my github url and the branch i am working on.
-- As a Learner I wantt to be able to click on an `Edit` button on one of the assignments on my dashboard to edit and resubmit it if it was returned unfinished.
+- As a Learner I want to be able to click on an `Edit` button on one of the assignments on my dashboard to edit and resubmit it if it was returned unfinished.
 - As a Learner I want to be able to click on a `View` button on a completed assignment on my dashboard and be able to view a review video for the given assignment.
 
 ### Reviewer User Stories

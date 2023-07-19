@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/assignments")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AssignmentController {
     @Autowired
     private AssignmentService assignmentService;
@@ -59,7 +60,6 @@ public class AssignmentController {
     }
 
 
-
     @PutMapping("/{assignmentId}")
     public ResponseEntity<?> updateAssignment(
             @PathVariable Long assignmentId,
@@ -85,8 +85,6 @@ public class AssignmentController {
             return ResponseEntity.notFound().build();
         }
     }
-
-
 
     @GetMapping("/validate")
     public ResponseEntity<?> validateToken() {
